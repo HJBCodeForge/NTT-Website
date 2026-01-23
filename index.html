@@ -73,7 +73,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
                     <img src="assets/logo.jpg" alt="Net Terms Tracker Logo" class="w-10 h-10 rounded-lg shadow-lg">
-                    <span class="font-bold text-xl tracking-tight text-slate-900">Net Terms Tracker</span>
+                    <span class="font-bold text-xl tracking-tight text-slate-900 truncate max-w-[200px] sm:max-w-none">Net Terms Tracker</span>
                 </div>
 
                 <!-- Desktop Navigation -->
@@ -82,11 +82,29 @@
                     <a href="#how-it-works" class="text-sm font-medium text-slate-600 hover:text-shopify-green transition-colors">How it Works</a>
                     <a href="#faq" class="text-sm font-medium text-slate-600 hover:text-shopify-green transition-colors">FAQ</a>
                     <a href="#contact" class="text-sm font-medium text-slate-600 hover:text-shopify-green transition-colors">Support</a>
+                    <a href="#" class="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-md text-white bg-shopify-green hover:bg-shopify-hover shadow-md transition-all transform hover:-translate-y-0.5">
+                        Install on Shopify
+                    </a>
                 </div>
 
-                <!-- CTA Button -->
-                <div>
-                    <a href="#" class="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-md text-white bg-shopify-green hover:bg-shopify-hover shadow-md transition-all transform hover:-translate-y-0.5">
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-slate-600 hover:text-shopify-green focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 absolute w-full left-0 top-20 shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#features" onclick="toggleMobileMenu()" class="block px-3 py-3 text-base font-medium text-slate-600 hover:text-shopify-green hover:bg-slate-50 rounded-md">Features</a>
+                <a href="#how-it-works" onclick="toggleMobileMenu()" class="block px-3 py-3 text-base font-medium text-slate-600 hover:text-shopify-green hover:bg-slate-50 rounded-md">How it Works</a>
+                <a href="#faq" onclick="toggleMobileMenu()" class="block px-3 py-3 text-base font-medium text-slate-600 hover:text-shopify-green hover:bg-slate-50 rounded-md">FAQ</a>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-3 text-base font-medium text-slate-600 hover:text-shopify-green hover:bg-slate-50 rounded-md">Support</a>
+                <div class="pt-4 mt-4 border-t border-gray-100">
+                    <a href="#" class="block w-full text-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-shopify-green hover:bg-shopify-hover shadow-md">
                         Install on Shopify
                     </a>
                 </div>
@@ -95,18 +113,18 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+    <section class="pt-24 pb-12 lg:pt-40 lg:pb-28 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-shopify-green text-xs font-semibold mb-8 border border-green-100">
                 <i class="fa-solid fa-check-circle"></i> Built for Shopify B2B
             </div>
 
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 mb-6 max-w-4xl mx-auto leading-tight">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 mb-6 max-w-4xl mx-auto leading-tight">
                 Automate B2B <span class="text-shopify-green">Net 30 Terms</span> & Invoicing on Shopify.
             </h1>
             
-            <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-600 mb-10">
+            <p class="mt-4 max-w-2xl mx-auto text-lg sm:text-xl text-slate-600 mb-10">
                 Stop using Draft Orders. The complete financial suite for wholesale: Credit Limits, PDF Invoicing, and Automated Compliance.
             </p>
 
@@ -569,6 +587,16 @@
 
         function closeModal() {
             document.getElementById('success-modal').classList.add('hidden');
+        }
+
+        // --- Mobile Menu Logic ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
         }
 
         // --- Chat Widget Logic ---
