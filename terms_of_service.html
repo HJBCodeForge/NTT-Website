@@ -44,9 +44,32 @@
             border-top: 1px solid #e1e3e5;
             margin: 24px 0;
         }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 30px;
+            text-decoration: none;
+            color: #202223;
+            font-weight: 500;
+            padding: 8px 16px;
+            background-color: #f6f6f7;
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .btn-back:hover {
+            background-color: #f1f2f3;
+            border-color: #babfc3;
+        }
     </style>
+    <!-- FontAwesome for arrow icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i> Return to Home
+    </a>
     <h1>Terms of Service</h1>
     <p class="subdued">Last Updated: January 26, 2026</p>
     
@@ -75,9 +98,9 @@
     <h2>4. Privacy & Data Use</h2>
     <p>By using the Service, you agree to the collection and use of information as detailed in our Privacy Policy. Key points include:</p>
     <ul>
-        <li>We store order and customer details necessary to generate invoices.</li>
-        <li>Data is retained for the lifetime of the app installation plus a 30-day grace period.</li>
-        <li>We comply with Shopify's GDPR/CCPA data redaction requests.</li>
+        <li><strong>Data Retention:</strong> We act as a <strong>data processor</strong>. Data is retained for the duration of the installation and for <strong>30 days</strong> post-uninstallation for backup purposes.</li>
+        <li><strong>GDPR/CCPA:</strong> We honor "Shopify Redact" requests within 48 hours.</li>
+        <li><strong>Role:</strong> We process data (Merchant, Customer, and Order data) solely to fulfill your invoicing instructions. We do not store sensitive payment tokens.</li>
     </ul>
 
     <h2>5. Termination</h2>
