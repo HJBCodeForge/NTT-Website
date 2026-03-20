@@ -39,18 +39,6 @@
     </script>
 
     <style>
-        /* Custom Scrollbar for Chat */
-        .chat-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .chat-scroll::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-        }
-        .chat-scroll::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 10px;
-        }
-        
         /* Video Placeholder Pulse */
         .video-placeholder {
             background: linear-gradient(-45deg, #e2e8f0, #f1f5f9, #e2e8f0);
@@ -508,58 +496,8 @@
         </div>
     </section>
 
-    <!-- Floating AI Agent Widget -->
-    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-        
-        <!-- Chat Window (Hidden by default) -->
-        <div id="chat-window" class="hidden mb-4 w-80 md:w-96 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden transform transition-all origin-bottom-right scale-95 opacity-0">
-            <!-- Chat Header -->
-            <div class="bg-shopify-green p-4 flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white">
-                        <i class="fa-solid fa-robot text-sm"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-white font-semibold text-sm">Net Terms Assistant</h4>
-                        <p class="text-green-100 text-xs">Always online</p>
-                    </div>
-                </div>
-                <button onclick="toggleChat()" class="text-white/80 hover:text-white">
-                    <i class="fa-solid fa-times"></i>
-                </button>
-            </div>
-
-            <!-- Chat Messages Area -->
-            <div id="chat-messages" class="h-64 overflow-y-auto p-4 bg-slate-50 chat-scroll flex flex-col gap-3">
-                <!-- Initial Message -->
-                <div class="flex justify-start">
-                    <div class="bg-white border border-gray-200 text-slate-700 text-sm py-2 px-3 rounded-tr-lg rounded-br-lg rounded-bl-lg shadow-sm max-w-[85%]">
-                        👋 Hi there! I can help you with Net Terms, invoicing, or credit limits. What's on your mind?
-                    </div>
-                </div>
-            </div>
-
-            <!-- Input Area -->
-            <div class="p-3 bg-white border-t border-gray-100">
-                <form id="chat-form" class="flex gap-2" onsubmit="handleChatSubmit(event)">
-                    <input type="text" id="chat-input" class="flex-1 bg-slate-50 border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-shopify-green" placeholder="Ask a question..." autocomplete="off">
-                    <button type="submit" class="bg-shopify-green text-white px-3 py-2 rounded-md hover:bg-shopify-hover transition-colors">
-                        <i class="fa-solid fa-paper-plane text-xs"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Floating Button -->
-        <button onclick="toggleChat()" class="w-14 h-14 bg-shopify-green text-white rounded-full shadow-lg hover:bg-shopify-hover hover:scale-105 transition-all flex items-center justify-center text-2xl relative">
-            <i class="fa-solid fa-comment-dots"></i>
-            <!-- Notification Dot -->
-            <span class="absolute top-0 right-0 -mt-1 -mr-1 flex h-4 w-4">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
-            </span>
-        </button>
-    </div>
+    <!-- Chatbot Widget -->
+    <script src="https://custom-integrated-chatbot.vercel.app/widget.js" data-bot-id="3a07bce9-6ffb-4443-855a-93671009e07d" defer></script>
 
     <!-- Success Modal -->
     <div id="success-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 hidden backdrop-blur-sm transition-opacity">
@@ -628,87 +566,6 @@
             }
         }
 
-        // --- Chat Widget Logic ---
-        const chatWindow = document.getElementById('chat-window');
-        const chatMessages = document.getElementById('chat-messages');
-        const chatInput = document.getElementById('chat-input');
-        let isChatOpen = false;
-
-        function toggleChat() {
-            isChatOpen = !isChatOpen;
-            if (isChatOpen) {
-                chatWindow.classList.remove('hidden');
-                // Small delay to allow display:block to apply before opacity transition
-                setTimeout(() => {
-                    chatWindow.classList.remove('scale-95', 'opacity-0');
-                    chatWindow.classList.add('scale-100', 'opacity-100');
-                    chatInput.focus();
-                }, 10);
-            } else {
-                chatWindow.classList.remove('scale-100', 'opacity-100');
-                chatWindow.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    chatWindow.classList.add('hidden');
-                }, 200);
-            }
-        }
-
-        async function handleChatSubmit(e) {
-            e.preventDefault();
-            const message = chatInput.value.trim();
-            if (!message) return;
-
-            // Add User Message
-            appendMessage(message, 'user');
-            chatInput.value = '';
-
-            // Simulate "Typing" delay
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'flex justify-start text-xs text-slate-400 ml-2 mb-2';
-            typingIndicator.innerText = 'Assistant is typing...';
-            typingIndicator.id = 'typing-indicator';
-            chatMessages.appendChild(typingIndicator);
-            scrollToBottom();
-
-            // Call API (Placeholder)
-            setTimeout(async () => {
-                const response = await askAgent(message);
-                
-                // Remove typing indicator
-                const indicator = document.getElementById('typing-indicator');
-                if(indicator) indicator.remove();
-
-                // Add Bot Message
-                appendMessage(response, 'bot');
-            }, 1000);
-        }
-
-        function appendMessage(text, sender) {
-            const div = document.createElement('div');
-            div.className = sender === 'user' ? 'flex justify-end' : 'flex justify-start';
-            
-            const bubble = document.createElement('div');
-            bubble.className = sender === 'user' 
-                ? 'bg-shopify-green text-white text-sm py-2 px-3 rounded-tl-lg rounded-bl-lg rounded-br-lg shadow-sm max-w-[85%]'
-                : 'bg-white border border-gray-200 text-slate-700 text-sm py-2 px-3 rounded-tr-lg rounded-br-lg rounded-bl-lg shadow-sm max-w-[85%]';
-            
-            bubble.innerText = text;
-            div.appendChild(bubble);
-            chatMessages.appendChild(div);
-            scrollToBottom();
-        }
-
-        function scrollToBottom() {
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Placeholder for AI Logic
-        async function askAgent(question) {
-            // Logic to hook into AI API would go here.
-            // For now, return hardcoded response.
-            console.log("User asked:", question);
-            return "I can help you with Net Terms! This is a demo response. Connect your API key to make me smart.";
-        }
     </script>
 </body>
 </html>
